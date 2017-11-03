@@ -1,0 +1,40 @@
+1 # encoding: utf-8
+  2 import bs4
+  3 import console
+  4 import requests
+  5 import urllib
+  6 import nltk
+  7 from bs4 import BeautifulSoup
+  8 #import word_cloud
+  9 
+ 10 page = urllib.request.Request( 'https://newrepublic.com/article/122745/drunk-confessi    ons-women-and-cliches-literary-drunkard')
+ 11 article = urllib.request.urlopen(page)
+ 12 soup = BeautifulSoup(article, 'html.parser')
+ 13 
+ 14 body = soup.find("div",{"class":"content-body"}).get_text(strip=True)
+ 15 paragraph = body.split()
+ 16 
+ 17 string_para = ' '.join(paragraph)
+ 18 punc = (",./;?&=!:")
+ 19 
+ 20 transtable = {ord(c): None for c in punc}
+ 21 strp = string_para.translate(transtable)
+ 22 
+ 23 wordfreq =  [paragraph.count(w) for w in paragraph]
+ 24 
+ 25 print("String\n" + body +"\n")
+ 26 print("List\n" + str(paragraph) + "\n") 
+ 27 print("Frequencies\n" + str(wordfreq) + "\n")
+ 28 print("Pairs\"n" + str(list(zip(paragraph, wordfreq))))
+ 29 
+ 30 #with open('google10k.rft','r') as f:
+ 31  #  dta = f.read()
+ 32 #cw10k = dta.split('\n')
+ 33 #with open('english-contractions-list.txt','r') as f:
+ 34    # dta.split('\n')
+ 35 #peskies = dta.split('\n')
+ 36 #cw10k.append('peskies')
+ 37 
+ 38 #remove punctuation from paragraph
+ 39 
+ 40 #list(set(paragraph) - set(cw10k)
